@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold mb-3">Learning Assessment</h1>
+                <p class="lead">Help us understand your learning style so we can create your personalized study plan.</p>
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" id="formProgress"></div>
+                </div>
+            </div>
+            
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <form method="post" id="assessmentForm">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">What is your primary learning style?</label>
+                            {{ form.learning_style }}
+                            <div class="form-text">Choose the style that best describes how you learn.</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">What is your current academic level?</label>
+                            {{ form.difficulty_level }}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">How long can you concentrate effectively?</label>
+                            {{ form.concentration_level }}
+                            <div class="form-text">This helps us determine optimal study session length.</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">What subjects are you studying?</label>
+                            {{ form.subjects_studying }}
+                            <div class="form-text">Enter subjects separated by commas (e.g., Mathematics, English, Biology)</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">What are your academic goals?</label>
+                            {{ form.academic_goals }}
+                            <div class="form-text">What do you want to achieve? (e.g., improve grades, pass exams, master a subject)</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">What challenges do you face when studying?</label>
+                            {{ form.study_challenges }}
+                            <div class="form-text">Be honest - this helps us address your specific obstacles.</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">How many hours can you study per day?</label>
+                            {{ form.available_hours_per_day }}
+                            <div class="form-text">Be realistic about your available time.</div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">When do you prefer to study?</label>
+                            {{ form.preferred_study_times }}
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-robot me-2"></i>Generate My AI Study Plan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="alert alert-info mt-4">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Why this matters:</strong> Your answers help our AI create a study plan tailored specifically to your needs, learning style, and schedule.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+    const button = this.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating Your Study Plan...';
+});
+</script>
+{% endblock %}

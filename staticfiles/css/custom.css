@@ -1,0 +1,49 @@
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #5B6E8C;
+    --accent-color: #FF6B6B;
+    --success-color: #27AE60;
+    --warning-color: #F39C12;
+    --dark-color: #2C3E50;
+    --light-bg: #F7F9FC;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark-color);
+    background: var(--light-bg);
+    line-height: 1.6;
+    padding-top: 76px;
+}
+
+/* Navigation */
+.navbar {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.text-accent {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.text-gradient {
+    background: linear-gradient(135deg

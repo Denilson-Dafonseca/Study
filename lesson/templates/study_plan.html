@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <li class="breadcrumb-item active">{{ study_plan.title }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="display-5 fw-bold mb-3">{{ study_plan.title }}</h1>
+                    <p class="lead">{{ plan_data.summary|default:"Your personalized study plan based on your learning profile." }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Study Techniques -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white">
+                    <h4><i class="fas fa-lightbulb me-2 text-warning"></i>Recommended Study Techniques</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for technique in study_plan.study_techniques|linebreaksbr|split:", " %}
+                            <li class="list-group-item bg-transparent">
+                                <i class="fas fa-check-circle text-success me-2"></i>{{ technique }}
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item bg-transparent">Complete your assessment to see personalized techniques.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Session Duration -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white">
+                    <h4><i class="fas fa-hourglass-half me-2 text-info"></i>Optimal Study Duration</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="display-1 fw-bold text-primary">{{ plan_data.session_duration|default:45 }}</div>
+                    <p class="lead">minutes per session</p>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Based on your concentration level, we recommend sessions of this length for optimal focus.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Weekly Schedule -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4><i class="fas fa-calendar-week me-2 text-primary"></i>Recommended Weekly Schedule</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Sessions</th>
+                                    <th>Subjects</th>
+                                    <th>Total Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for day, schedule in plan_data.weekly_schedule.items %}
+                                    <tr>
+                                        <td><strong>{{ day }}</strong></td>
+                                        <td>{{ schedule.sessions }} sessions</td>
+                                        <td>{{ schedule.subjects|join:", " }}</td>
+                                        <td>{{ schedule.total_minutes }} min</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Revision Plan -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4><i class="fas fa-sync-alt me-2 text-success"></i>Revision Strategy</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Spaced Repetition Schedule</h5>
+                            <ul>
+                                <li>Review within 24 hours</li>
+                                <li>Second review after 3 days</li>
+                                <li>Third review after 1 week</li>
+                                <li>Fourth review after 2 weeks</li>
+                                <li>Final review after 1 month</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Weekly Revision Tips</h5>
+                            <ul>
+                                <li>Dedicate Sundays for weekly revision</li>
+                                <li>Mix old and new topics</li>
+                                <li>Create summary sheets for quick review</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Tips -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h4><i class="fas fa-star text-warning me-2"></i>Tips for Success</h4>
+                    <div class="row">
+                        {% for tip in plan_data.tips_for_success %}
+                            <div class="col-md-6 mb-2">
+                                <i class="fas fa-check text-success me-2"></i>{{ tip }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

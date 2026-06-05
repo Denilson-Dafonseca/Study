@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto text-center mb-5">
+            <h1 class="display-4 fw-bold mb-4">About We Study</h1>
+            <p class="lead">An AI-powered educational assistant dedicated to transforming how learners approach studying.</p>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="h4 mb-3"><i class="fas fa-question-circle text-primary me-2"></i>The Problem</h3>
+                    <p>Many learners struggle academically not because they lack intelligence, but because they have never been taught how to study effectively. Common issues include:</p>
+                    <ul>
+                        <li>Rote memorization instead of deep understanding</li>
+                        <li>Last-minute cramming before exams</li>
+                        <li>Passive reading without active engagement</li>
+                        <li>Lack of personalized study strategies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body p-4">
+                    <h3 class="h4 mb-3"><i class="fas fa-lightbulb text-primary me-2"></i>Our Solution</h3>
+                    <p>We Study provides each learner with a tailored study approach based on:</p>
+                    <ul>
+                        <li>Learning preferences and styles</li>
+                        <li>Individual strengths and weaknesses</li>
+                        <li>Academic goals and aspirations</li>
+                        <li>Daily routines and available time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card bg-primary text-white shadow-sm">
+                <div class="card-body p-5">
+                    <h2 class="h3 mb-3 text-center">Our Mission in Namibia</h2>
+                    <p class="text-center mb-0">We Study is particularly beneficial for Namibia, where educational challenges such as large classroom sizes, unequal access to learning support, and varying academic achievement levels continue to exist. Our goal is to provide equitable access to personalized learning strategies for all Namibian learners.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+                <h4>Improved Performance</h4>
+                <p>Higher academic achievement and better examination results</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-brain fa-3x text-primary mb-3"></i>
+                <h4>Better Retention</h4>
+                <p>Long-term knowledge retention through proven techniques</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="feature-card text-center p-4">
+                <i class="fas fa-chalkboard-user fa-3x text-primary mb-3"></i>
+                <h4>Support Educators</h4>
+                <p>Complementing teachers' efforts, not replacing them</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

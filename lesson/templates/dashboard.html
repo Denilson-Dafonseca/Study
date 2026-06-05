@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Welcome Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-gradient-primary text-white">
+                <div class="card-body p-4">
+                    <h2 class="mb-2">Welcome back, {{ user.get_full_name|default:user.username }}! 👋</h2>
+                    <p class="mb-0 opacity-90">Your personalized AI study assistant is ready to help you succeed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats Overview -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <i class="fas fa-clock fa-2x text-primary mb-2"></i>
+                    <h3 class="mb-0">{{ total_study_time|default:0 }} min</h3>
+                    <p class="text-muted mb-0">Total Study Time</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                    <h3 class="mb-0">{{ completion_rate|default:0 }}%</h3>
+                    <p class="text-muted mb-0">Completion Rate</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <i class="fas fa-brain fa-2x text-info mb-2"></i>
+                    <h3 class="mb-0">{{ profile.get_learning_style_display|default:"Not set" }}</h3>
+                    <p class="text-muted mb-0">Learning Style</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <i class="fas fa-bullseye fa-2x text-warning mb-2"></i>
+                    <h3 class="mb-0">{{ study_plans|length }}</h3>
+                    <p class="text-muted mb-0">Active Plans</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Upcoming Sessions -->
+        <div class="col-lg-7 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0"><i class="fas fa-calendar-alt me-2 text-primary"></i>Upcoming Study Sessions</h4>
+                </div>
+                <div class="card-body">
+                    {% if upcoming_sessions %}
+                        <div class="list-group">
+                            {% for session in upcoming_sessions %}
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">{{ session.subject }}</h6>
+                                        <small class="text-muted">
+                                            <i class="far fa-calendar me-1"></i>{{ session.scheduled_date|date:"F j, Y" }}
+                                            <i class="far fa-clock ms-2 me-1"></i>{{ session.start_time|time:"g:i A" }}
+                                            <i class="fas fa-hourglass-half ms-2 me-1"></i>{{ session.duration_minutes }} min
+                                        </small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success" onclick="completeSession({{ session.id }})">
+                                        <i class="fas fa-check"></i> Complete
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-4">No upcoming sessions. Complete your assessment to generate a study plan!</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Study Tips -->
+        <div class="col-lg-5 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0"><i class="fas fa-lightbulb me-2 text-warning"></i>AI Study Tip</h4>
+                </div>
+                <div class="card-body">
+                    <div class="tip-box p-3 bg-light rounded">
+                        <i class="fas fa-quote-left fa-2x text-primary opacity-50"></i>
+                        <p class="mt-2 mb-0">Based on your {{ profile.get_learning_style_display|default:"learning" }} style, try using the Feynman Technique: Teach what you've learned to someone else in simple terms. This helps identify gaps in your understanding!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Study Plans -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0"><i class="fas fa-tasks me-2 text-primary"></i>Your Study Plans</h4>
+                </div>
+                <div class="card-body">
+                    {% if study_plans %}
+                        <div class="row g-4">
+                            {% for plan in study_plans %}
+                                <div class="col-md-6">
+                                    <div class="plan-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ plan.title }}</h5>
+                                            <p class="text-muted small">Created: {{ plan.created_at|date:"F j, Y" }}</p>
+                                            <a href="{% url 'study_plan_detail' plan.id %}" class="btn btn-primary btn-sm">View Plan</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted text-center py-4">No study plans yet. Complete the assessment to get your personalized plan!</p>
+                        <div class="text-center">
+                            <a href="{% url 'assessment' %}" class="btn btn-primary">Complete Assessment</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function completeSession(sessionId) {
+    if (confirm('Mark this session as completed?')) {
+        fetch(`/update-session/${sessionId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || '',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload();
+            } else {
+                alert('Error updating session');
+            }
+        });
+    }
+}
+</script>
+{% endblock %}

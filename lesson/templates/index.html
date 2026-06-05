@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h1 class="display-4 fw-bold mb-4">
+                    Master the Art of<br>
+                    <span class="text-gradient">Effective Learning</span>
+                </h1>
+                <p class="lead mb-4">
+                    We Study is an AI-powered educational assistant that helps you develop personalized 
+                    study strategies based on your unique learning style, goals, and daily routine.
+                </p>
+                <div class="d-flex gap-3">
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Get Started Free
+                        </a>
+                        <a href="{% url 'about' %}" class="btn btn-outline-primary btn-lg">Learn More</a>
+                    {% else %}
+                        <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">
+                            <i class="fas fa-chart-line me-2"></i>Go to Dashboard
+                        </a>
+                    {% endif %}
+                </div>
+                
+                <!-- Stats -->
+                <div class="row mt-5 g-4">
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="fw-bold mb-0">95.6%</h3>
+                            <p class="text-muted small">Youth Literacy Rate in Namibia</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="fw-bold mb-0">10K+</h3>
+                            <p class="text-muted small">Active Learners</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="stat-box">
+                            <h3 class="fw-bold mb-0">85%</h3>
+                            <p class="text-muted small">Improved Grades</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <img src="https://placehold.co/600x500/4A90E2/white?text=AI+Study+Assistant" alt="We Study AI Assistant" class="img-fluid rounded-4 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3">How We Study Works</h2>
+            <p class="lead text-muted">Personalized AI-powered study assistance tailored to YOU</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-clipboard-list fa-3x text-primary"></i>
+                    </div>
+                    <h4>1. Complete Assessment</h4>
+                    <p>Answer questions about your learning style, challenges, and goals</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-robot fa-3x text-primary"></i>
+                    </div>
+                    <h4>2. AI Generates Plan</h4>
+                    <p>Our AI creates a personalized study strategy just for you</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center p-4">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-chart-line fa-3x text-primary"></i>
+                    </div>
+                    <h4>3. Track Progress</h4>
+                    <p>Monitor your improvement and adjust strategies as needed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Learning Styles Section -->
+<section class="learning-styles-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold mb-3">Personalized for Your Learning Style</h2>
+            <p class="lead text-muted">We support all types of learners</p>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-eye fa-2x mb-2"></i>
+                    <h6>Visual</h6>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-headphones fa-2x mb-2"></i>
+                    <h6>Auditory</h6>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-book fa-2x mb-2"></i>
+                    <h6>Reading/Writing</h6>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-hand-paper fa-2x mb-2"></i>
+                    <h6>Kinesthetic</h6>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-adjust fa-2x mb-2"></i>
+                    <h6>Mixed</h6>
+                </div>
+            </div>
+            <div class="col-md-2 col-6">
+                <div class="style-card text-center p-3">
+                    <i class="fas fa-chart-pie fa-2x mb-2"></i>
+                    <h6>Custom</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Section -->
+<section class="impact-section py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="fw-bold mb-4">Making a Difference in Namibia</h2>
+                <p class="mb-3">Despite a 95.6% youth literacy rate, many Namibian learners struggle with effective study techniques. We Study bridges this gap by teaching <strong>how to learn</strong>, not just what to learn.</p>
+                <div class="impact-stats mt-4">
+                    <div class="mb-3">
+                        <i class="fas fa-graduation-cap text-primary me-2"></i>
+                        <strong>Empowering Learners:</strong> Personalized strategies for every student
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-mobile-alt text-primary me-2"></i>
+                        <strong>Mobile-First Design:</strong> Optimized for smartphone learning
+                    </div>
+                    <div class="mb-3">
+                        <i class="fas fa-chalkboard-teacher text-primary me-2"></i>
+                        <strong>Complement, Not Replace:</strong> Supporting teachers and tutors
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-primary text-white p-4 rounded-4">
+                    <i class="fas fa-quote-left fa-2x mb-3 opacity-50"></i>
+                    <p class="fs-5 mb-3">"Many learners struggle not because they lack intelligence, but because they've never been taught how to study effectively."</p>
+                    <p class="mb-0 fw-bold">— We Study Founding Philosophy</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section py-5 bg-gradient-primary">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Ready to Transform Your Learning?</h2>
+        <p class="lead mb-4">Join thousands of learners who have improved their study habits with We Study</p>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg">Start Your Journey Now</a>
+        {% else %}
+            <a href="{% url 'assessment' %}" class="btn btn-light btn-lg">Complete Your Assessment</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
